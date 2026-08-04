@@ -17,3 +17,20 @@ themeToggle.addEventListener("click", () => {
   applyTheme(next);
   localStorage.setItem("theme", next);
 });
+
+function toggleFold(title) {
+  const wrap = document.getElementById(title.dataset.foldTarget);
+  const folded = wrap.classList.toggle("folded");
+  title.classList.toggle("is-folded", folded);
+  title.setAttribute("aria-expanded", String(!folded));
+}
+
+document.querySelectorAll(".section-title.foldable").forEach((title) => {
+  title.addEventListener("click", () => toggleFold(title));
+  title.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleFold(title);
+    }
+  });
+});
