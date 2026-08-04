@@ -1,24 +1,26 @@
 :root {
-  --bg: #ffffff;
-  --bg-alt: #f6f7f9;
-  --text: #1a1d23;
-  --text-muted: #5b6270;
-  --accent: #3b5bfd;
-  --accent-soft: #e8ecff;
-  --border: #e5e7eb;
+  --bg: #faf8f2;
+  --bg-alt: #eef3e6;
+  --text: #1f2b1e;
+  --text-muted: #5f6f57;
+  --accent: #c2618f;
+  --accent-green: #4f7942;
+  --accent-soft: #f6e0ec;
+  --border: #dde4d3;
   --card-bg: #ffffff;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(31,43,30,0.07), 0 1px 2px rgba(31,43,30,0.05);
 }
 
 [data-theme="dark"] {
-  --bg: #12141a;
-  --bg-alt: #181b22;
-  --text: #eceef2;
-  --text-muted: #9aa1ae;
-  --accent: #7b93ff;
-  --accent-soft: #232a45;
-  --border: #262a33;
-  --card-bg: #1a1d25;
+  --bg: #12170f;
+  --bg-alt: #171f13;
+  --text: #edf1e6;
+  --text-muted: #9aab90;
+  --accent: #e896c4;
+  --accent-green: #86b569;
+  --accent-soft: #2b2130;
+  --border: #263420;
+  --card-bg: #182013;
   --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
 }
 
@@ -94,11 +96,39 @@ a:hover { text-decoration: underline; }
 
 /* Hero */
 .hero {
+  position: relative;
+  overflow: hidden;
   padding: 96px 24px 72px;
   text-align: center;
 }
 
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%236b8f5c' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M100 190 C100 150 100 110 100 20'/%3E%3Cpath d='M100 170 C80 160 60 155 40 150'/%3E%3Cpath d='M100 170 C120 160 140 155 160 150'/%3E%3Cpath d='M100 140 C82 132 64 128 46 124'/%3E%3Cpath d='M100 140 C118 132 136 128 154 124'/%3E%3Cpath d='M100 110 C84 104 68 100 52 96'/%3E%3Cpath d='M100 110 C116 104 132 100 148 96'/%3E%3Cpath d='M100 80 C86 75 72 72 58 68'/%3E%3Cpath d='M100 80 C114 75 128 72 142 68'/%3E%3Cpath d='M100 50 C90 46 80 44 70 41'/%3E%3Cpath d='M100 50 C110 46 120 44 130 41'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.hero::before {
+  top: -50px;
+  right: -50px;
+  transform: rotate(20deg);
+}
+
+.hero::after {
+  bottom: -60px;
+  left: -60px;
+  width: 200px;
+  height: 200px;
+  transform: rotate(-160deg);
+}
+
 .hero-inner {
+  position: relative;
   max-width: 720px;
   margin: 0 auto;
 }
@@ -199,6 +229,14 @@ a:hover { text-decoration: underline; }
   font-size: 1.7rem;
   font-weight: 800;
   margin: 0 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before {
+  content: "🌸";
+  font-size: 1.2rem;
 }
 
 .subsection-title {
@@ -224,11 +262,10 @@ a:hover { text-decoration: underline; }
 }
 
 .highlights li::before {
-  content: "▹";
+  content: "🌿";
   position: absolute;
   left: 0;
-  color: var(--accent);
-  font-weight: 700;
+  font-size: 0.85rem;
 }
 
 /* Tags */
