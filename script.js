@@ -28,7 +28,13 @@ function setFolded(title, folded) {
 }
 
 function toggleFold(title) {
-  foldableTitles.forEach((t) => setFolded(t, t !== title));
+  const wrap = document.getElementById(title.dataset.foldTarget);
+  const isOpen = !wrap.classList.contains("folded");
+  if (isOpen) {
+    setFolded(title, true);
+  } else {
+    foldableTitles.forEach((t) => setFolded(t, t !== title));
+  }
 }
 
 foldableTitles.forEach((title) => {
