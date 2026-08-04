@@ -18,14 +18,28 @@ themeToggle.addEventListener("click", () => {
   localStorage.setItem("theme", next);
 });
 
-function toggleFold(title) {
+const foldableTitles = document.querySelectorAll(".section-title.foldable");
+
+function setFolded(title, folded) {
   const wrap = document.getElementById(title.dataset.foldTarget);
-  const folded = wrap.classList.toggle("folded");
+  wrap.classList.toggle("folded", folded);
   title.classList.toggle("is-folded", folded);
   title.setAttribute("aria-expanded", String(!folded));
 }
 
-document.querySelectorAll(".section-title.foldable").forEach((title) => {
+function toggleFold(title) {
+  const wrap = document.getElementById(title.dataset.foldTarget);
+  const willFold = !wrap.classList.contains("folded");
+  foldableTitles.forEach((t) => {
+    if (t === title) {
+      setFolded(t, willFold);
+    } else if (willFold) {
+      setFolded(t, false);
+    }
+  });
+}
+
+foldableTitles.forEach((title) => {
   title.addEventListener("click", () => toggleFold(title));
   title.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") {

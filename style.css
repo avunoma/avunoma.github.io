@@ -205,24 +205,87 @@ a:hover { text-decoration: underline; }
   margin: 0;
 }
 
-/* Sections */
-.section {
-  padding: 64px 24px;
-  max-width: 1000px;
+/* Plant layout: a central stem with alternating branches */
+.plant {
+  position: relative;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 60px 24px 80px;
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  row-gap: 48px;
 }
 
-.section.alt {
-  max-width: none;
-  background: var(--bg-alt);
+.plant::before {
+  content: "";
+  grid-column: 2;
+  grid-row: 1 / -1;
+  width: 3px;
+  justify-self: center;
+  background: linear-gradient(to bottom, var(--accent-green), var(--accent));
+  border-radius: 2px;
 }
-.section.alt > * {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+
+.branch {
+  position: relative;
 }
-.section.alt > *:not(.tag-list):not(.skill-bars):not(.timeline) {
-  display: block;
+
+.branch:nth-of-type(1) { grid-column: 1; grid-row: 1; }
+.branch:nth-of-type(2) { grid-column: 3; grid-row: 2; }
+.branch:nth-of-type(3) { grid-column: 1; grid-row: 3; }
+.branch:nth-of-type(4) { grid-column: 3; grid-row: 4; }
+
+.branch:nth-of-type(odd)::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  right: -20px;
+  width: 20px;
+  height: 2px;
+  background: var(--border);
+}
+
+.branch:nth-of-type(odd)::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  right: -27px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+}
+
+.branch:nth-of-type(even)::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  width: 20px;
+  height: 2px;
+  background: var(--border);
+}
+
+.branch:nth-of-type(even)::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: -27px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+}
+
+.branch-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+  text-align: left;
 }
 
 .section-title {
@@ -336,95 +399,6 @@ a:hover { text-decoration: underline; }
   padding: 4px 10px;
 }
 
-/* Skill bars */
-.skill-bars {
-  display: grid;
-  gap: 14px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.skill-row {
-  display: grid;
-  grid-template-columns: 130px 1fr 80px;
-  align-items: center;
-  gap: 14px;
-}
-
-.skill-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.skill-track {
-  background: var(--border);
-  border-radius: 999px;
-  height: 8px;
-  overflow: hidden;
-}
-
-.skill-fill {
-  background: var(--accent);
-  height: 100%;
-  border-radius: 999px;
-}
-
-.skill-years {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  text-align: right;
-}
-
-/* Cards */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: var(--shadow);
-}
-
-.card-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: 1.15rem;
-}
-
-.card-meta {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.card-dates {
-  font-size: 0.82rem;
-  color: var(--accent);
-  font-weight: 600;
-  margin: 0 0 14px;
-}
-
-.card ul {
-  margin: 0 0 16px;
-  padding-left: 20px;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-}
-
-.card li { margin-bottom: 8px; }
-
 /* Timeline */
 .timeline {
   max-width: 1000px;
@@ -448,7 +422,7 @@ a:hover { text-decoration: underline; }
   height: 12px;
   border-radius: 50%;
   background: var(--accent);
-  border: 3px solid var(--bg-alt);
+  border: 3px solid var(--card-bg);
 }
 
 .timeline-content h3 {
@@ -470,12 +444,11 @@ a:hover { text-decoration: underline; }
   font-size: 0.92rem;
 }
 
-/* Contact */
-.contact-text {
-  color: var(--text-muted);
-  margin-bottom: 28px;
+.timeline-content .tag-list.small {
+  margin-top: 10px;
 }
 
+/* Contact */
 .contact-links {
   display: flex;
   gap: 16px;
@@ -509,8 +482,40 @@ a:hover { text-decoration: underline; }
   border-top: 1px solid var(--border);
 }
 
+@media (max-width: 720px) {
+  .plant {
+    display: block;
+    padding-left: 40px;
+  }
+
+  .plant::before {
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    transform: none;
+  }
+
+  .branch {
+    margin-bottom: 40px;
+  }
+
+  .branch:nth-of-type(odd)::after,
+  .branch:nth-of-type(even)::after {
+    top: 30px;
+    left: -28px;
+    right: auto;
+    width: 16px;
+  }
+
+  .branch:nth-of-type(odd)::before,
+  .branch:nth-of-type(even)::before {
+    top: 24px;
+    left: -34px;
+    right: auto;
+  }
+}
+
 @media (max-width: 640px) {
   .nav nav { gap: 12px; }
   .nav nav a { font-size: 0.85rem; }
-  .skill-row { grid-template-columns: 100px 1fr 60px; gap: 8px; }
 }
