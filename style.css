@@ -67,6 +67,7 @@ a:hover { text-decoration: underline; }
 }
 
 .brand-role {
+  transform: translateX(-10px);
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-muted);
